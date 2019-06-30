@@ -1,0 +1,14 @@
+Intro to DAPP Development:
+Monday Week 8 is final project submission
+Follow content in the online portal
+Each week Milestone
+1 dapp per week
+
+
+Project Idea - Blockchain Watch List -  More trusted reviews on tv shows and movies?
+vscode addin, change solidity.compileusingRemoteVersion: v0.4.24+commit.e67f0147
+
+IPFS
+Install Go Ethereum (Geth) Lets you run smartcontracts locally
+Embark - Framework for building ethereum projects - similar to Angular, i.e. web framework.
+Mokka - Testing for smartcontracts
