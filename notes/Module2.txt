@@ -1,0 +1,134 @@
+Calls to constant smart contract functions  end with either .call() or .send(), .call() being a function that does not make a change to the contract, i.e. requires no transaction
+
+Testing steps:
+    Import the contract’s ABI.
+    Deploy the contract with a parameter value of our choosing.
+    Request the value of myMessage from the network.
+    Verify the value matches our provided parameter.
+
+cmd: embark test
+
+
+We do not have access to return value of transaction in Web3, we simply get the transaction hash
+
+Blockchain testing: 'good tests'
+    Who is (and isn’t) supposed to be able to call the setMessage function? What functionality might benefit from not being “public”?
+    What side effects does the function cause?
+    What requirements have to be fulfilled for calling the function successfully?
+
+For debugging web3 and EVM we register listeners to out transaction object - This is added to the test!
+let tx = MyContract.methods.setMessage(newMessage).send({ from: accounts[1] }) 
+tx.on('transactionHash', function(hash){
+  console.log({ hash })
+})
+tx.on('receipt', function(receipt){
+  console.log({ receipt })
+})
+await tx
+
+
+Quick ui setup using NPM and choo:
+    Make a UI dir
+    npm init
+    npm i web3 budo choo
+    add a simple HTML index page
+    add "dev": "budo index.js:bundle.js --live --open" to package.json scripts object
+
+we can now run using npm run dev
+
+    add an index.js file with this content:
+        // 1. Imports
+// import choo
+var choo = require('choo')
+var html = require('choo/html')
+// import web3
+var Web3 = require('web3')
+// initialize choo
+var app = choo()
+
+// 2. main function
+const main = (state, emit) => {
+    return html `
+      <div>
+        <form onsubmit="${setMessage}" method="POST">
+            <label for="message">New message:</label>
+            <input type="text" id="message" name="message">
+            <input type="submit" value="Set">
+        </form>
+      </div>`
+
+    // Set new message
+    function setMessage(e) {
+        e.preventDefault()
+        var data = new FormData(e.currentTarget)
+        state.contractInstance.methods.setMessage(data.get("message")).send({ from: web3.eth.defaultAccount })
+        .on('error', console.error)
+        .on('receipt', async receipt => {
+            console.log("Success!", receipt)
+            state.message = await getMessage(state)
+            emit('render')
+        })
+    }
+}
+
+// 3. Create a route
+app.route('/', main)
+
+// 4. Start app
+app.mount('div')    
+
+
+Code breakdown:
+    Emit: is fro remitting events to pass information to other parts of the app
+    Main: Returns HTMl that goes inside the Div, defined in the index.html page
+    app.mount, defines for choo where to put the div return object, (the empty div in index.html is mount point)
+
+
+Hooking up the contract:
+
+Web3 provider:
+    var Web3 = require('web3');
+    var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+
+Run embark simulator
+Get the ABI (simulator, then build)
+Note down address: 0x1277299787e38E0441104082395c2C9202b844e4
+Move ABI to root of choo project (UI folder?)
+Import the ABI into the index.js file (var contractABI = require("./MyContract.json").abiDefinition)
+connect to web3.js and point to smart contract
+    app.use(function (state, emitter) {
+       // TODO
+    )
+
+
+Setting up a local test via MetaMask:
+Create a network on the port you are running simulator
+Import account from the simulator output
+
+Ethereum accounts are locked for security and must be unlocked to send transactions.
+    enabling access to all MetaMask accounts and
+        Add this code to the DOMContentLoader listerner
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.enable()
+                } catch (error) {
+                    console.log(error)
+                }
+            }       
+    unlocking the imported account from out testnet.
+
+
+Etherum Access Control:
+    Data is never hidden, simply inaccessable or immutable
+    use require keyword instead of if checks
+    Function modifiers can be created for require checks as reuseable code snippets
+    function using the modifier is executed at '_'
+
+    modifier onlyOwner {
+       require(msg.sender == owner, "Only owner can call this function.");
+       _;
+    }   
+    function setMessage(string _message) public onlyOwner {
+        myMessage = _message;
+    }
+

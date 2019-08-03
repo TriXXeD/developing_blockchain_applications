@@ -1,0 +1,70 @@
+
+3.1 Limitations of Ethereum & Blockchains
+    Must be reasonably simple
+    Slow transactions - transaction wait time
+    Everything is public - including bugs - it cannot be changed
+
+    What is Gas?
+        Miners choose transactions based on gas cost
+        Block limits also limits gas price, if a transaction exceeds this, it cannot fit into a block
+    How randomness works in Blockchains
+        Oracles - Smart contracts fed data from outside of network
+        oracalize.it hardware-based RNG - not actually trustless, we trust the oracle
+        Oracles have a wider use but RNG, it is simply a datasource we can choose to trust
+
+    How to work around immuteability
+        Proxy Pattern
+            points to stuff we can change
+            Has a way to change proxy point
+            Introduces trust in the app, you must trust whoever can change the proxy
+            Multisignature wallet can be used for community trust  
+                wallet that contains multiple keys, majority of keyholders must agree to a transaction
+
+3.2 Decentralised Storage
+Blockchains are : Tamper-evident, distributed, Decentralised
+
+Store off-chain, and keep hash references in-chain
+Compare different distributed storage solutions (DSS)
+    Storage mechanism	    Example	        Pros	                                                       Cons
+    Traditional Database	MySQL, MongoDB	Strong querying, cheap	Single point of faliure, centralised,   lacks transparency
+    Distributed Database	Azure CosmosDB	Strong querying, cheap, redundancy	Centralised,                lacks transparency
+    Distributed Filesystem	IPFS	        Redundancy, tranparency, decentralised	                        No query capabilities
+Learn how to use InterPlanetary File System (IPFS) to store files
+    references files by hash and not location
+    each file piece is 256kB, IPFS object links to the set of pieces that make up a file
+    Files can be pinned for permanent accessability, unpinned stuff may be removed
+    IPFS is based on MerkleDAG & DHT
+        MerkleDAG is like MerkleTree but does not have to be balanced, and leafs may contain more information
+Familiarise with IPFS tools
+    GO or JS
+    npm install js-ipfs / go-ipfs
+    Set path if desired
+        export/set IPFS_PATH=/path/to/ipfsrepo
+    ipfs init or jsipfs init
+    initializing IPFS node at C:\Users\TriXXeD\.ipfs
+    generating 2048-bit RSA keypair...done
+    peer identity: QmaY8a5nu4gpqJCz4QEyiN4CiqHvJpYCXz188beDPQi5bn
+    to get started, enter:
+        ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme
+
+    Add file to IPFS:
+        ipfs add --help
+            ipfs add  $PATH
+        to get file 
+            ipfs cat $FILE_HASH
+    
+    Now from App instead of CLI - js-ipfs
+        npm init
+        npm install ipfs --save (adds dependency)
+        Create a ipfs-test.js file that calls something, requires for setup
+            const IPFS = require('ipfs')
+            const node = new IPFS()
+        node ipfs-test.js to run test
+
+        node.add to add file
+        files are added as buffer, stream or object arrays.
+
+3.3 Interacting with IPFS
+    How to upload via JSIPFS, Download & Display via JSIPFS, Play with file encryption.
+    check the assignment repo for things.
+    Encryption, not detailed - too complex to cover

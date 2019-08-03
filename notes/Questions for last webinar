@@ -1,0 +1,13 @@
+Are there any pros/cons in terms of blockchains and gas cost, to putting you values into a struct, rather than just having them as multiple mappings ?
+
+Adding onto that, is there a cost difference for having a mapping in a struct, rather than a nested mapping?
+
+Is recursion cheaper or better than loops in any way ?
+
+Sorting and creating linked lists seems expensive - are these simply to be avoided, or are there alternatives to these, perhaps patterns that favor not using them ?
+
+Return all of anything dynamically sized seems extremely volatile (gas cost) - Is there a best practice for returning this, e.g. return every image/uploader/commenter etc. in our DAPP?
+
+You mentioned ETH2.0 in an earlier webinar, I remember reading about it a while back, specifically the new Casper protocol for it, which is Proof-of-Stake(PoS) instead of Proof-of-Work(PoS), development in any way - particular in regard to what is more costly gas wise?
+
+Also in my understanding PoS is less trustless - as if a majority Stakeholder(say 51%) would ever exist, they would have greater influence - I get that Casper has some additional caviats to the theoretical PoS, but could you elaborate on how blockchain core concepts might be affected?

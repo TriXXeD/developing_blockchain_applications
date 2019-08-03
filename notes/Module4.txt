@@ -1,0 +1,19 @@
+Building a Dapp
+    Learn How to combine IPFS & Smart contracts
+    Interesting applications of DAPPs
+    Importance of testing
+
+4.1 Working with Data
+    Why Etherum and IPFS works great together
+        Combines to a decentralized hard drive
+    How to store files on Ethereum
+    
+Solidty doesnt support returning data and container with variable type length (string arrays)
+Convert IPFS hash to base 32:
+    let ipfsHash = 'QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG'
+    const bs58  = require('bs58')
+    let decoded = bs58.decode(ipfsHash)
+    let sliced = decoded.slice(2)
+    let hex = sliced.toString('hex')
+    let result = '0x' + hex
+    console.log('Encoded IPFS hash:', result)

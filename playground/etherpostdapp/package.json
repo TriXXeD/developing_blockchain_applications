@@ -1,0 +1,22 @@
+{
+  "name": "etherpostdapp",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "embark test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "embarkjs-connector-web3": "^4.0.0"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "bs58": "^4.0.1",
+    "web3": "^1.2.0"
+  },
+  "description": ""
+}

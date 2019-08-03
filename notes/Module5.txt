@@ -1,0 +1,17 @@
+Content:
+    Add user accounts to DAPP
+    use web3.js to listen for events
+    Assess Best practices for UX considerations
+    Real time DAPP stuff
+
+Events are only emitted once the transaction is actually confirmed
+Events are also part of the blockchain state and are therefore stored for eternity.
+https://medium.com/@childsmaidment/stateless-smart-contracts-21830b0cd1b6
+Events are harder to test
+Testing locally we can use something like this:
+const txResult = myContract.transactionWhichResultsInAnEvent()
+const events = txResult.events
+// now we can inspect the events
+console.log(events)
+
+but network has difference RPC API, i.e. won't return the same.

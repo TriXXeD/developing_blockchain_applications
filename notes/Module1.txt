@@ -5,3 +5,19 @@ Whisper: Private secure communication protocol
 Externally Owned Accounts (EOAs) i.e. user Accounts
 Contract accounts, controlled by code and activated by EOA
 
+Hello World Example
+pragma solidity 0.4.24;
+
+contract HelloWorld {
+  function helloWorld() public pure returns (string) {
+    return "Hello, World!";
+  }
+}
+
+Pure = does not read or write to blockchain
+Constructor syntax:
+constructor (string _message) public {
+    myMessage = _message;
+}
+
+Self destruct funktion is the only way to remove code from blockchain

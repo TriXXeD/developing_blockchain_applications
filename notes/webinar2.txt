@@ -1,0 +1,38 @@
+Why is writing slower than reading?
+    Transactions take time, reading data does not
+
+Optimising Gas Cost
+    Minimize information to blockhain
+    IPFS achieves this (you link to files, you do not add the files to the chain)
+    Code complexity is irrelevant, only transaction no. and data storage impacts gas cost 
+    Mechanisms are in place to avoid CPU hogging, which is minimal gas cost for CPU time
+
+IPFS immutability?
+    Access file through the hash
+    If data is ever changed on IPFS, hash changes
+
+Can we browse DAPPs/Web3 without Metamask?
+    Metamask = etherum wallet
+    Metamask connects to etherum node for you
+    Some mechanism is required to pull/send/sign etc. - this is what metamask does
+    Metamask uses web3.js to communicate
+
+Embark Vs Remix (testing)
+    Testing in Remix might be superior
+    Embark is simplified and better for local development
+    Remix is reliant on deploying seperately
+
+Functions allocate memory each time they are called, (they use memory not storage by default)
+
+
+Function Modifiers
+    External functions call EVM
+    Internal processes data inside smart contract and makes no call to EVM
+    Public functions auto create get
+    Private object does not support get
+    everything on EVM is public, so it is visible, but you cannot retrieve it
+
+Solidity.readthedocs.io (Probably best source for debugging & code assistance)
+Contract mortal is Owned (Inheritence format - Mortal inherits Owned)
+
+

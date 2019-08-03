@@ -1,0 +1,27 @@
+Milestone 2 example:
+    Avoid HTML in contract
+    Treat contract as back-end business logic
+
+    Front-end (UI)
+    app.use
+        Set initialize values here (state.VALNAME = INIT_VAL)
+    event listeners for stuff to happen
+        emitter.on('funcName', async (arg) => {js stuff})
+    Best practice - minimal front end to pull data from the contact.
+
+Unlock Account?
+    Used when an account on node is used.
+    trans is made on external acc via node
+    Uncommonly used, more of a local testing thing
+
+Why are containers treated differently (container = state object?)
+    due to immuteability
+    you point to data instead of putting data
+    Low storage requirements to keep gas costs down
+
+Randomness
+    Distribued system seed data makes Randomness hard
+    Blockhash is a bad source due to malicousness from miners
+
+IPFS
+    Basically like torrents
