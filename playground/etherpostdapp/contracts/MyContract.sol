@@ -92,7 +92,7 @@ contract MyContract is EtherPostInterface {
     bytes32[] storage res;
     for ( uint i = 0; i < users[uploader].uploads.length; i++ ){
       if (images[users[uploader].uploads[i]].isHidden == false ||
-         (images[users[uploader].uploads[i]].isHidden == true && compareStrings(images[imgList[i]].visibleTo, keyword))
+         (images[users[uploader].uploads[i]].isHidden == true && compareStrings(images[users[uploader].uploads[i]].visibleTo, keyword))
         ) {
           res.push(users[uploader].uploads[i]);
       }
@@ -163,7 +163,6 @@ contract MyContract is EtherPostInterface {
       namesTaken[name] = true;
       users[msg.sender].handle = name;
   }
-
 
   function getActiveUsers() public view returns (address[]) {
     return activeUsers;

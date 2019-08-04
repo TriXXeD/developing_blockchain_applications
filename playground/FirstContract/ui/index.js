@@ -36,7 +36,7 @@ app.use(function (state, emitter) {
         // Unlock account
         const accounts = await web3.eth.getAccounts()
         // Paste from course was missing String and Int, (Passord and duration?)
-        web3.eth.personal.unlockAccount(accounts[0], "", 1000000, async function (error, result) {
+        web3.eth.personal.unlockAccount(accounts[0], "", 5000000, async function (error, result) {
             if (error) {
                 console.error(error)
             }

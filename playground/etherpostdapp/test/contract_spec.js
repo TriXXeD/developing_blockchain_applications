@@ -26,6 +26,13 @@ it('lets us add hash to struct', async() => {
   assert.equal(getIpfsHashFromBytes32(uploads[0]), testHash)
 })
 
+it('has registered account0 as an active user', async() => {
+  let activeusers = await MyContract.methods.getActiveUsers().call({ from: accounts[0]})
+  
+  assert.equal(activeusers.length, 1)
+  assert.equal(accounts[0], activeusers[0])
+})
+
 it('fails to upload image which is already uploaded by that user', async() => {
   let testHash = 'QmfCEDjJ1X41ZuopVXJKjrQzbSXm1kJ7KkeTtCFLXeynLA'
   try {
@@ -55,8 +62,14 @@ it('Assigns the upload to the correct user', async() => {
   let testHash = 'QmfCEDjJ1X41ZuopVXJKjrQzbSXm1kJ7KkeTtCFLXeynLB'
   await MyContract.methods.upload(getBytes32FromIpfsHash(testHash)).send({ from: accounts[0] })
   let uploads = await MyContract.methods.getUploads(accounts[1]).call()
-
+  
   assert.equal(uploads.length, 0)
+})
+
+it('Did not add user to activeUser list as user is already added', async() => {
+  let activeusers = await MyContract.methods.getActiveUsers().call({ from: accounts[0]})
+  assert.equal(activeusers.length, 1)
+  assert.equal(activeusers[0], accounts[0])
 })
 
 it('Raises emits LogUpload event', async() => {
@@ -107,6 +120,20 @@ it('Is also hidden from the user specific get', async() => {
   assert.equal(allUploads.length, 0)
 })
 
+it('Individual can see it with passphrase', async() => { 
+  let testHash = 'QmfCEDjJ1X41ZuopVXJKjrQzbSXm1kJ7KkeTtCFLXeynLE'
+  let allUploads = await MyContract.methods.getUploads(accounts[1], "hidden").call({ from: accounts[0] })
+  //console.log(allUploads)
+  assert.equal(allUploads.length, 1)
+})
+
+it('But not with wrong passphrase', async() => { 
+  let testHash = 'QmfCEDjJ1X41ZuopVXJKjrQzbSXm1kJ7KkeTtCFLXeynLE'
+  let allUploads = await MyContract.methods.getUploads(accounts[1], "wrong").call({ from: accounts[0] })
+  //console.log(allUploads)
+  assert.equal(allUploads.length, 0)
+})
+
 it('Only allows the original uploader to hide an image', async() => {
   let testHash = 'QmfCEDjJ1X41ZuopVXJKjrQzbSXm1kJ7KkeTtCFLXeynLA'
   try {
@@ -131,6 +158,8 @@ it('Does not show the hidden element if another keyword is given', async() => {
   //console.log(allUploads)
   assert.equal(allUploads.length, 4)
 })
+
+
 
 // Let's check that we can clap
 it('Lets me clap an image and emits clap event', async() => {
